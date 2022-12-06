@@ -3,18 +3,41 @@
 
 console.log("Hello, world!");
 
-let message = 'Hola! Me llamo pop-up!';
+let message = 'It is time to play Rock Paper Scissors';
 alert(message);
 
 // Write a function called getComputerChoice that randomly returns Rock, Paper, or Scissors
 // tip: console.log() (or use Watch function of debugger!) to make sure this is happening as expected.
-// - use a math.random function to randomly select a number 1, 2, or 3. These will evaluate to Rock, Paper, and Scissors. Save this result as computerSelection and log it.
 
-/* function getComputerChoice {
-// random # *3 plus 1.
-// if 1, compSel = rock; 2, compSel = paper; 3, compSel = scissors
-// log compSel
- } */
+
+//create the global variable for computerSelection
+let computerSelection;
+
+// - use a math.random function to randomly select a number 1, 2, or 3. These will evaluate to Rock, Paper, and Scissors. Save this result as computerSelection and log it.
+function getComputerChoice() {
+
+// random # *3 plus 1. if 1, compSel = rock; 2, compSel = paper; 3, compSel = scissors
+
+    switch (Math.floor(Math.random() * 3 + 1)) {
+        case 1:
+            computerSelection = "rock";
+            break;
+        case 2:
+            computerSelection = "paper";
+            break;
+        case 3:
+            computerSelection = "scissors";        
+    }
+// log it
+console.log("The computer has selected: " + computerSelection);
+    
+}
+// invoke the function!
+getComputerChoice();
+
+//log it again to confirm that the computerSelection assignment persists outside of the getComputerChoice() function (it does!)
+console.log(computerSelection);
+
 
 // Write a function that takes 2 parameters, playerSelection and computerSelection, and then returns a string that declares the winner of a round: "You Lose! Paper beats Rock"
 // Make sure playerSelection is case-insensitve (so convert it to all lowers or something for purposes of comparison - inputs of Rock, ROCK and rOcK all need to evaluate the same)
