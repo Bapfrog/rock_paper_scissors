@@ -26,14 +26,14 @@ function getComputerChoice() {
             computerSelection = "scissors";        
     }
 // log it
-console.log("The computer has selected: " + computerSelection);
-    
+    console.log("The computer has selected: " + computerSelection);
+    return computerSelection;
 }
 // invoke the function!
-getComputerChoice();
+//getComputerChoice();
 
 // log it again to confirm that the computerSelection assignment persists outside of the getComputerChoice() function
-console.log("Confirming that " + computerSelection  +(", the computer's selection, persists outside of the function")); //it does
+//console.log("Confirming that " + computerSelection  +(", the computer's selection, persists outside of the function")); //it does
 
 // write a function to prompt for player input, convert to lower, and perform form validation (so make sure they didn't input something other than rock/paper/scissors)
 function getSelection() {
@@ -42,11 +42,8 @@ function getSelection() {
     // log it
     console.log("Player has inputted: " + playerSelection);
 
-    // write a function that takes the player input and performs toLowerCase() for comparison purposes
+    // perform toLowerCase() for comparison purposes
     playerSelection = playerSelection.toLowerCase();
-
-    // log it
-    console.log(playerSelection + " should be all lowercase now"); //it is
 
     // need to confirm that playerSelection is ONLY one of rock, paper or scissors
     if (!(playerSelection === "rock" || playerSelection === "paper" || playerSelection === "scissors")) {
@@ -59,16 +56,19 @@ function getSelection() {
 }
 
 // invoke it
-getSelection();
+// getSelection();
 // log it again now that is definitely an acceptable input
-console.log("Player has properly inputted: " + playerSelection);
+//console.log("Player has properly inputted: " + playerSelection);
 
 // Write a function that takes 2 parameters, playerSelection and computerSelection, and then returns a string that declares the winner of a round: "You Lose! Paper beats Rock"
 // this function needs to return a result which can used later
 
+// invoke game()
+game();
+
  function playRound (playerSelection, computerSelection) {
 
-    //some variables to keep things cleaner down below
+    // variables to keep things cleaner down below
     const rockWins = "Rock defeats Scissors";
     const paperWins = "Paper defeats Rock";
     const scissorsWins = "Scissors defeats Paper";
@@ -76,12 +76,11 @@ console.log("Player has properly inputted: " + playerSelection);
     const youWin = " - you win!";
     let tieGame = "We each chose " + playerSelection + " - it's a tie!";
 
-
-    //if statements with nested switch statements?
+    // if statements with nested switch statements to determine outcome
     if (computerSelection === "rock")  {
         switch (playerSelection) {
             case "rock":
-                outcome = tieGame; //"We each chose Rock - it's a tie!";
+                outcome = tieGame;
                 break;                  
             case "scissors":
                 outcome = rockWins + youLose;
@@ -101,7 +100,7 @@ console.log("Player has properly inputted: " + playerSelection);
                 outcome = scissorsWins + youWin;
                 break;  
             case "paper": 
-                outcome = tieGame; //"We each chose Paper - it's a tie!";
+                outcome = tieGame;
                 break;  
         }        
     }
@@ -112,7 +111,7 @@ console.log("Player has properly inputted: " + playerSelection);
                 outcome = rockWins + youWin;
                 break;           
             case "scissors":
-                outcome = tieGame; //"We each chose Scissors - it's a tie!";
+                outcome = tieGame;
                 break;  
             case "paper": 
                 outcome = scissorsWins + youLose;
@@ -121,23 +120,47 @@ console.log("Player has properly inputted: " + playerSelection);
     }   
     console.log(outcome);
     alert(outcome);
+    return outcome;
 }
 
-// invoke playRound()
-playRound(playerSelection, computerSelection);
-
 //does the outcome variable keep its value outside of the playRound() function?
-console.log("confirming outcome persists outside of function: " + outcome);  //it does
+//console.log("confirming outcome persists outside of function: " + outcome);  //it does
 
-/*
-    // - Use a switch statement to iterate all the possible matchups (including ties): if playerSelection === rock && computerSelection === paper, "You Lose! Paper beats Rock." We can do some bundling here - all the wins/losses/ties can have the same output for the first sentence (You lose/You win/It's a tie), and the second sentence declaration of the outcome can be the result of separate logic.
-} */
 
-// Write a new function called game(). Call the playRound function inside of the game() function to play a 5 round game that keeps score and reports the winner or lose at the end
-// That means a loop is in order!
-/* for (let i=0; 1<5; i++) {
-    // game() will call playRound, and at the end of each round it will log the current score; after 5 rounds it will log the final score and report the winner
-} */
 
-// Use console.log() to display the result of each round and the winner at the end. Variables playerScore and computerScore will need to update at the conclusion of each round.
-  // "Player: " + playerScore + "; Computer: " + computerScore
+// game() will call the functions to get computer selection, player selection, and play a round. At the end of each round it will log the current score. After 5 rounds it will log the final score and report the winner
+function game() {
+
+    let playerScore = 0;
+    let computerScore = 0;
+    let tieScore = 0;
+    let scoreUpdate;
+    
+
+    for (let i=0; i<5; i++) {
+        getComputerChoice();
+        getSelection();
+        playRound(playerSelection, computerSelection);
+
+        if (outcome.includes("win")) {
+            ++playerScore;
+        } else if (outcome.includes ("lose")) {
+            ++computerScore;
+        } else {
+             ++tieScore;
+        }
+        scoreUpdate = "Player: " + playerScore + "; Computer: " + computerScore + "; Tie: " + tieScore;
+        console.log(scoreUpdate);
+    }
+    let finalScore = "The final score is " + scoreUpdate + "."
+    if (playerScore > computerScore) {
+        console.log("Congratulations, You Won! " + finalScore)
+    } else if (computerScore > playerScore) {
+        console.log("Sorry, You Lost! " + finalScore)
+    } else {
+        console.log(finalScore + " Tie score, seriously? I demand a rematch!")
+    }
+}
+
+
+
